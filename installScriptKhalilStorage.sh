@@ -1,8 +1,14 @@
+#!/bin/bash
+# add -x to the first line to enable debugging mode !
+
 # sometimes it locks up yum so we kill the damn thing !
+# only on your install Mr.Khalil :D
 pkill PackageKit
 pkill packagekit
-#yum -y install wget
 
+#yum -y install wget
+yum check-update
+yum -y upgrade
 # install openstack repositories
 yum install -y https://www.rdoproject.org/repos/rdo-release.rpm
 yum check-update
@@ -46,3 +52,8 @@ wget https://raw.githubusercontent.com/msfellag/openstack-setup/main/lvm.conf -o
 yum -y install openstack-cinder targetcli python-keystone
 
 
+mv -f /etc/cinder/cinder.conf /etc/cinder/cinder.conf.bkup
+wget https://raw.githubusercontent.com/msfellag/openstack-setup/main/cinder.conf -o /etc/cinder/cinder.conf
+
+systemctl enable openstack-cinder-volume.service target.service
+systemctl start openstack-cinder-volume.service target.service
