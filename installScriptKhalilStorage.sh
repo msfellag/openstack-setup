@@ -46,14 +46,14 @@ vgcreate cinder-volumes /dev/sdb
 # we modify existing lvm config file with this one
 # to ignore the new lvm volume and reserve it for cinder
 mv -f /etc/lvm/lvm.conf /etc/lvm/lvm.conf.bkup
-wget https://raw.githubusercontent.com/msfellag/openstack-setup/main/lvm.conf -o /etc/lvm/lvm.conf
+wget https://raw.githubusercontent.com/msfellag/openstack-setup/main/lvm.conf -O /etc/lvm/lvm.conf
 
 #Install and configure components
 yum -y install openstack-cinder targetcli python-keystone
 
 
 mv -f /etc/cinder/cinder.conf /etc/cinder/cinder.conf.bkup
-wget https://raw.githubusercontent.com/msfellag/openstack-setup/main/cinder.conf -o /etc/cinder/cinder.conf
+wget https://raw.githubusercontent.com/msfellag/openstack-setup/main/cinder.conf -O /etc/cinder/cinder.conf
 
 systemctl enable openstack-cinder-volume.service target.service
 systemctl start openstack-cinder-volume.service target.service
